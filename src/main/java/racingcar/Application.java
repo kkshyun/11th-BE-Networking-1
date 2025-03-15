@@ -20,6 +20,7 @@ public class Application {
             getCars();
         } catch(IllegalArgumentException e) {
             System.out.println("잘못된 값을 입력하였습니다. 이름은 5자 이하만 가능합니다.");
+            return;
         }
 
 
