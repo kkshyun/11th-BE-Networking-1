@@ -9,10 +9,16 @@ public class Application {
     static Map<String,Integer> map;
     public static String[] getCars() throws IllegalArgumentException {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        String[] cars = Console.readLine().split(",");
+        String input = Console.readLine();
+        // 아무것도 입력하지 않은 경우
+        if(input.isEmpty())
+            throw new IllegalArgumentException();
+        String[] cars = input.split(",",-1);
         for (int i = 0; i < cars.length; i++) {
-            if(cars[i].length()>5)
+            // 이름을 5글자 이상 입력한 경우 또는 콤마(,)만 입력한 경우
+            if(cars[i].length()>5||cars[i].isEmpty()) {
                 throw new IllegalArgumentException();
+            }
         }
         return cars;
     }
@@ -69,7 +75,7 @@ public class Application {
         try{
             cars = getCars();
         } catch(IllegalArgumentException e) {
-            System.out.println("잘못된 값을 입력하였습니다. 이름은 5자 이하만 가능합니다.");
+            System.out.println("잘못된 값을 입력하였습니다.");
             return;
         }
 
