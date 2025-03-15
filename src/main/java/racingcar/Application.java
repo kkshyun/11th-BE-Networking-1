@@ -3,8 +3,7 @@ package racingcar;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Application {
     static Map<String,Integer> map;
@@ -44,6 +43,25 @@ public class Application {
         }
     }
 
+    public static void printWinner(){
+        // 가장 많이 전진한 횟수 구하기
+        int max = 0;
+        for (Map.Entry<String,Integer> element : map.entrySet()) {
+            if(max < element.getValue())
+                max = element.getValue();
+        }
+        // 가장 많이 전진한 횟수를 가진 자동차 출력
+        boolean first = false;
+        for (Map.Entry<String,Integer> element : map.entrySet()) {
+            if(element.getValue()==max && first) {
+                System.out.print(", "+element.getKey());
+            } else if(element.getValue()==max && !first) {
+                System.out.print("최종 우승자 : " + element.getKey());
+                first = true;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         // TODO: 프로그램 구현
         // 자동차 이름 입력 받기
@@ -61,8 +79,10 @@ public class Application {
             moveCount = getMoveCount();
         } catch(IllegalArgumentException e) {
             System.out.println("잘못된 값을 입력하였습니다.");
+            return;
         }
 
+        // 게임 실행 및 결과 출력
         map = new HashMap<>();
         for (int i = 0; i < cars.length; i++) {
             map.put(cars[i],0);
@@ -75,5 +95,8 @@ public class Application {
             print();
             System.out.println();
         }
+
+        // 우승자 출력
+        printWinner();
     }
 }
