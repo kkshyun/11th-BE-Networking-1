@@ -1,8 +1,6 @@
 package racingcar;
-
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
-
 import java.util.*;
 
 public class Application {
@@ -70,39 +68,36 @@ public class Application {
 
     public static void main(String[] args) {
         // TODO: 프로그램 구현
-        // 자동차 이름 입력 받기
-        String[] cars;
         try{
+            // 자동차 이름 입력 받기
+            String[] cars;
             cars = getCars();
-        } catch(IllegalArgumentException e) {
-            System.out.println("잘못된 값을 입력하였습니다.");
-            return;
-        }
 
-        // 자동차 이동 횟수 입력 받기
-        int moveCount = 0;
-        try{
+            // 자동차 이동 횟수 입력 받기
+            int moveCount = 0;
             moveCount = getMoveCount();
+
+
+            // 게임 실행 및 결과 출력
+            map = new HashMap<>();
+            for (int i = 0; i < cars.length; i++) {
+                map.put(cars[i],0);
+            }
+
+            System.out.println("\n실행 결과");
+
+            for (int i = 0; i < moveCount; i++) {
+                move();
+                print();
+                System.out.println();
+            }
+
+            // 우승자 출력
+            printWinner();
+
         } catch(IllegalArgumentException e) {
             System.out.println("잘못된 값을 입력하였습니다.");
-            return;
+            throw e;
         }
-
-        // 게임 실행 및 결과 출력
-        map = new HashMap<>();
-        for (int i = 0; i < cars.length; i++) {
-            map.put(cars[i],0);
-        }
-
-        System.out.println("\n실행결과");
-
-        for (int i = 0; i < moveCount; i++) {
-            move();
-            print();
-            System.out.println();
-        }
-
-        // 우승자 출력
-        printWinner();
     }
 }
